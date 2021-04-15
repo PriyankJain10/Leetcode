@@ -1,4 +1,4 @@
-// time - O(n^2)
+// time - O(nlogn)
 // space - O(1)
 
 #include<bits/stdc++.h>
@@ -12,27 +12,14 @@ using namespace std;
             return strs[0];
         if(n == 0)
             return ans;
-        int l = strs[0].size();
-        for(int i=1;i<n;i++)
+        
+        sort(strs.begin(), strs.end());
+        int m = min(strs[0].size(), strs[n-1].size());
+        for(int i=0;i<m;i++)
         {
-            if(l > strs[i].size())
-                l = strs[i].size();
-        }
-        for(int i=0;i<l;i++)
-        {
-            char c = strs[0][i];
-            bool flag = 1;
-            for(int j=0;j<n;j++)
-            {
-                if(strs[j][i] != c)
-                {
-                    flag = 0;
-                    break;
-                }
-            }
-            if(!flag)
-                break;
-            ans += c;    
+            if(strs[0][i] != strs[n-1][i])
+                return ans;
+            ans += strs[0][i];
         }
         return ans;
     }
